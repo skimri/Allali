@@ -41,31 +41,35 @@
 
     <section class="gallery" id="gallery" aria-label="Artwork gallery">
       <div class="gallery-heading">
-        <h2>Lorem ipsum dolor</h2>
-        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p>
+        <h2>Browse Galleries</h2>
+        <p>Select a category to view its full image gallery.</p>
       </div>
 
       <div class="art-grid">
-        <figure class="tile"><img src="https://picsum.photos/seed/laura-01/800/800" alt="Temporary artwork placeholder 1" loading="lazy" /><figcaption>Lorem ipsum</figcaption></figure>
-        <figure class="tile"><img src="https://picsum.photos/seed/laura-02/800/800" alt="Temporary artwork placeholder 2" loading="lazy" /><figcaption>Dolor sit</figcaption></figure>
-        <figure class="tile"><img src="https://picsum.photos/seed/laura-03/800/800" alt="Temporary artwork placeholder 3" loading="lazy" /><figcaption>Amet elit</figcaption></figure>
-        <figure class="tile"><img src="https://picsum.photos/seed/laura-04/800/800" alt="Temporary artwork placeholder 4" loading="lazy" /><figcaption>Magna aliqua</figcaption></figure>
-        <figure class="tile"><img src="https://picsum.photos/seed/laura-05/800/800" alt="Temporary artwork placeholder 5" loading="lazy" /><figcaption>Tempor sed</figcaption></figure>
-        <figure class="tile"><img src="https://picsum.photos/seed/laura-06/800/800" alt="Temporary artwork placeholder 6" loading="lazy" /><figcaption>Nostrud enim</figcaption></figure>
-        <figure class="tile"><img src="https://picsum.photos/seed/laura-07/800/800" alt="Temporary artwork placeholder 7" loading="lazy" /><figcaption>Ullamco nisi</figcaption></figure>
-        <figure class="tile"><img src="https://picsum.photos/seed/laura-08/800/800" alt="Temporary artwork placeholder 8" loading="lazy" /><figcaption>Aliquip aute</figcaption></figure>
-        <figure class="tile"><img src="https://picsum.photos/seed/laura-09/800/800" alt="Temporary artwork placeholder 9" loading="lazy" /><figcaption>Velit esse</figcaption></figure>
-        <figure class="tile"><img src="https://picsum.photos/seed/laura-10/800/800" alt="Temporary artwork placeholder 10" loading="lazy" /><figcaption>Cillum dolore</figcaption></figure>
-        <figure class="tile"><img src="https://picsum.photos/seed/laura-11/800/800" alt="Temporary artwork placeholder 11" loading="lazy" /><figcaption>Fugiat nulla</figcaption></figure>
-        <figure class="tile"><img src="https://picsum.photos/seed/laura-12/800/800" alt="Temporary artwork placeholder 12" loading="lazy" /><figcaption>Pariatur sed</figcaption></figure>
-        <figure class="tile"><img src="https://picsum.photos/seed/laura-13/800/800" alt="Temporary artwork placeholder 13" loading="lazy" /><figcaption>Perspiciatis unde</figcaption></figure>
-        <figure class="tile"><img src="https://picsum.photos/seed/laura-14/800/800" alt="Temporary artwork placeholder 14" loading="lazy" /><figcaption>Omnis iste</figcaption></figure>
-        <figure class="tile"><img src="https://picsum.photos/seed/laura-15/800/800" alt="Temporary artwork placeholder 15" loading="lazy" /><figcaption>Natus error</figcaption></figure>
-        <figure class="tile"><img src="https://picsum.photos/seed/laura-16/800/800" alt="Temporary artwork placeholder 16" loading="lazy" /><figcaption>Voluptatem rem</figcaption></figure>
-        <figure class="tile"><img src="https://picsum.photos/seed/laura-17/800/800" alt="Temporary artwork placeholder 17" loading="lazy" /><figcaption>Accusantium sit</figcaption></figure>
-        <figure class="tile"><img src="https://picsum.photos/seed/laura-18/800/800" alt="Temporary artwork placeholder 18" loading="lazy" /><figcaption>Doloremque totam</figcaption></figure>
-        <figure class="tile"><img src="https://picsum.photos/seed/laura-19/800/800" alt="Temporary artwork placeholder 19" loading="lazy" /><figcaption>Aperiam eaque</figcaption></figure>
-        <figure class="tile"><img src="https://picsum.photos/seed/laura-20/800/800" alt="Temporary artwork placeholder 20" loading="lazy" /><figcaption>Quae ab</figcaption></figure>
+        <a class="tile gallery-link" href="gallery-portraits.html" aria-label="Open portraits gallery">
+          <img src="https://picsum.photos/seed/laura-portraits-cover/800/800" alt="Portraits gallery cover" loading="lazy" />
+          <span>Portraits</span>
+        </a>
+        <a class="tile gallery-link" href="gallery-editorial.html" aria-label="Open editorial gallery">
+          <img src="https://picsum.photos/seed/laura-editorial-cover/800/800" alt="Editorial gallery cover" loading="lazy" />
+          <span>Editorial</span>
+        </a>
+        <a class="tile gallery-link" href="gallery-children.html" aria-label="Open children books gallery">
+          <img src="https://picsum.photos/seed/laura-children-cover/800/800" alt="Children books gallery cover" loading="lazy" />
+          <span>Children Books</span>
+        </a>
+        <a class="tile gallery-link" href="gallery-character-design.html" aria-label="Open character design gallery">
+          <img src="https://picsum.photos/seed/laura-character-cover/800/800" alt="Character design gallery cover" loading="lazy" />
+          <span>Character Design</span>
+        </a>
+        <a class="tile gallery-link" href="gallery-nature.html" aria-label="Open nature studies gallery">
+          <img src="https://picsum.photos/seed/laura-nature-cover/800/800" alt="Nature studies gallery cover" loading="lazy" />
+          <span>Nature Studies</span>
+        </a>
+        <a class="tile gallery-link" href="gallery-sketchbook.html" aria-label="Open sketchbook gallery">
+          <img src="https://picsum.photos/seed/laura-sketchbook-cover/800/800" alt="Sketchbook gallery cover" loading="lazy" />
+          <span>Sketchbook</span>
+        </a>
       </div>
     </section>
 
@@ -83,16 +87,6 @@
   <footer>
     <p>Laura Allali • Illustrator • Portfolio</p>
   </footer>
-
-  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-label="Artwork preview">
-    <button class="lightbox-close" type="button" aria-label="Close preview">Close</button>
-    <button class="lightbox-nav lightbox-prev" type="button" aria-label="Previous artwork">&#10094;</button>
-    <figure class="lightbox-content">
-      <img id="lightbox-image" src="" alt="" />
-      <figcaption id="lightbox-caption"></figcaption>
-    </figure>
-    <button class="lightbox-nav lightbox-next" type="button" aria-label="Next artwork">&#10095;</button>
-  </div>
 
   <script src="script.js"></script>
 </body>
