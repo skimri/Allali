@@ -152,6 +152,25 @@ main {
   margin-bottom: 2.6rem;
 }
 
+.about-page {
+  margin: 1.2rem 0 2.8rem;
+  max-width: 76ch;
+}
+
+.about-page h1 {
+  margin: 0 0 1rem;
+  font-family: "Cormorant Infant", serif;
+  font-size: clamp(1.7rem, 3.2vw, 2.5rem);
+  font-weight: 600;
+}
+
+.about-page p {
+  margin: 0 0 1rem;
+  color: var(--muted);
+  line-height: 1.75;
+  font-size: 0.96rem;
+}
+
 .category-page h1 {
   margin: 0;
   font-family: "Cormorant Infant", serif;
