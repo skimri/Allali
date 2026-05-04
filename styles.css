@@ -85,8 +85,7 @@ body {
 }
 
 .logo-text {
-  font-family: "Caveat", cursive;
-  font-size: clamp(1.35rem, 2.3vw, 2rem);
+  font-size: clamp(1.3rem, 2.3vw, 1.3rem);
   line-height: 1;
 }
 
@@ -146,7 +145,7 @@ main {
   width: 100%;
   height: clamp(260px, 47vw, 580px);
   object-fit: cover;
-  object-position: center;
+  object-position: center 20%;
   border: none;
   filter: saturate(0.83) contrast(1.04);
 }
@@ -183,7 +182,6 @@ main {
 
 .contact-intro h1 {
   margin: 0 0 0.85rem;
-  font-family: "Cormorant Infant", serif;
   font-size: clamp(1.7rem, 3.2vw, 2.5rem);
   font-weight: 600;
 }
@@ -211,7 +209,6 @@ main {
 
 .contact-card h2 {
   margin: 0 0 0.7rem;
-  font-family: "Cormorant Infant", serif;
   font-size: 1.4rem;
   font-weight: 600;
 }
@@ -277,7 +274,6 @@ main {
 
 .about-page h1 {
   margin: 0 0 1rem;
-  font-family: "Cormorant Infant", serif;
   font-size: clamp(1.7rem, 3.2vw, 2.5rem);
   font-weight: 600;
 }
@@ -291,7 +287,6 @@ main {
 
 .category-page h1 {
   margin: 0;
-  font-family: "Cormorant Infant", serif;
   font-size: clamp(1.6rem, 3.4vw, 2.5rem);
   font-weight: 600;
 }
@@ -314,7 +309,6 @@ main {
 
 .subcategory-title {
   margin: 0 0 0.66rem;
-  font-family: "Cormorant Infant", serif;
   font-size: clamp(1.1rem, 2.2vw, 1.45rem);
   font-weight: 600;
   color: var(--ink);
@@ -362,7 +356,6 @@ main {
 
 .gallery-heading h2 {
   margin: 0;
-  font-family: "Cormorant Infant", serif;
   font-size: clamp(1.45rem, 3vw, 2.2rem);
   font-weight: 600;
 }
