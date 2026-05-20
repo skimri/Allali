@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,13 +12,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../styles.css" />
 </head>
+
 <body>
   <div class="grain" aria-hidden="true"></div>
 
   <header class="site-header" aria-label="Primary navigation">
     <a class="logo" href="../index.html" aria-label="Laura Allali home">
       <img class="logo-icon" src="../assets/ico-transparent.png" alt="" aria-hidden="true" />
-      <span class="logo-text">Laura Allali <span>Illustrator</span></span>
+      <img class="logo-image" src="../assets/logo.png" alt="Laura Allali illustrator logo" />
     </a>
     <nav>
       <a href="../index.html#gallery">Gallery</a>
@@ -29,38 +31,61 @@
   <main>
     <section class="about-page" aria-label="About Laura Allali">
       <h1>About</h1>
-        <button class="language-toggle" id="languageToggle" aria-label="Toggle language" title="Switch language">
+      <button class="language-toggle" id="languageToggle" aria-label="Toggle language" title="Switch language">
         <span class="lang-en" data-lang="en">ENG</span>
         <span class="lang-nl" data-lang="nl" style="display: none;">NL</span>
       </button>
-      <div data-lang="en" class="lang-content">
-        <h3>Hello! I'm Laura Allali. (°2005)</h3>
-        <p>
-          I'm an emerging artist based in Antwerp and currently studying illustration at LUCA School of Arts in Ghent.
-        </p>
-        <p>
-          My portfolio presents the development of my artistic practice over time. A trajectory of experimentation with materials, techniques, and subject matter. While my earlier work explores a range of approaches, it gradually shifts toward a more focused and introspective practice.
-        </p>
-        <p>
-          In my final year, I work primarily in gouache, using its layering and opacity to explore nostalgia as both comfort and distortion. My work centers on personal childhood memories, reflecting on how these moments were experienced at the time and how they transform when revisited in the present.
-          A palette often guided by varying shades of blue reinforces this sense of distance and introspection. My paintings are not direct representations, but reinterpretations shaped by both recollection and current perspective, inviting reflection on the shifting nature of memory.
-        </p>
-      </div>
-      
-      <!-- Dutch Content -->
-      <div data-lang="nl" class="lang-content" style="display: none;">
-        <h3>Hallo! Ik ben Laura Allali. (°2005)</h3>
-        <p>
-          Ik ben een opkomend kunstenaar gevestigd in Antwerpen, en studeer momenteel illustratie aan LUCA School of Arts in Gent.
-        </p>
-        <p>
-          Mijn portfolio toont de ontwikkeling van mijn artistieke praktijk doorheen de tijd. Een traject van experimentatie met materialen, technieken en onderwerpen. Hoewel mijn vroegere werk een breed scala aan benaderingen verkent, verschuift het geleidelijk naar een meer gerichte en introspectieve praktijk.
-        </p>
-        <p>
-          In mijn laatste jaar werk ik voornamelijk met gouache, waarbij ik de gelaagdheid en dekkracht van het medium gebruik om nostalgie te verkennen als zowel troost als vervorming. Mijn werk vertrekt vanuit persoonlijke jeugdherinneringen en reflecteert op hoe deze momenten destijds werden ervaren en hoe ze veranderen wanneer ze in het heden opnieuw worden bekeken.
-          Een kleurenpalet dat vaak wordt gestuurd door verschillende tinten blauw versterkt dit gevoel van afstand en introspectie.
-          Mijn schilderijen zijn geen directe weergaven, maar herinterpretaties gevormd door zowel herinnering als een hedendaags perspectief, en nodigen uit tot reflectie over de veranderlijke aard van het geheugen.
-        </p>
+      <div class="about-flex">
+        <div class="about-texts">
+          <div data-lang="en" class="lang-content">
+            <h3>Hello! I'm Laura Allali. (°2005)</h3>
+            <p>
+              I'm an emerging artist based in Antwerp and currently studying illustration at LUCA School of Arts in
+              Ghent.
+            </p>
+            <p>
+              My portfolio presents the development of my artistic practice over time. A trajectory of experimentation
+              with materials, techniques, and subject matter. While my earlier work explores a range of approaches, it
+              gradually shifts toward a more focused and introspective practice.
+            </p>
+            <p>
+              In my final year, I work primarily in gouache, using its layering and opacity to explore nostalgia as both
+              comfort and distortion. My work centers on personal childhood memories, reflecting on how these moments
+              were experienced at the time and how they transform when revisited in the present.
+              A palette often guided by varying shades of blue reinforces this sense of distance and introspection. My
+              paintings are not direct representations, but reinterpretations shaped by both recollection and current
+              perspective, inviting reflection on the shifting nature of memory.
+            </p>
+          </div>
+
+          <!-- Dutch Content -->
+          <div data-lang="nl" class="lang-content" style="display: none;">
+            <h3>Hallo! Ik ben Laura Allali. (°2005)</h3>
+            <p>
+              Ik ben een opkomend kunstenaar gevestigd in Antwerpen, en studeer momenteel illustratie aan LUCA School of
+              Arts in Gent.
+            </p>
+            <p>
+              Mijn portfolio toont de ontwikkeling van mijn artistieke praktijk doorheen de tijd. Een traject van
+              experimentatie met materialen, technieken en onderwerpen. Hoewel mijn vroegere werk een breed scala aan
+              benaderingen verkent, verschuift het geleidelijk naar een meer gerichte en introspectieve praktijk.
+            </p>
+            <p>
+              In mijn laatste jaar werk ik voornamelijk met gouache, waarbij ik de gelaagdheid en dekkracht van het
+              medium gebruik om nostalgie te verkennen als zowel troost als vervorming. Mijn werk vertrekt vanuit
+              persoonlijke jeugdherinneringen en reflecteert op hoe deze momenten destijds werden ervaren en hoe ze
+              veranderen wanneer ze in het heden opnieuw worden bekeken.
+              Een kleurenpalet dat vaak wordt gestuurd door verschillende tinten blauw versterkt dit gevoel van afstand
+              en introspectie.
+              Mijn schilderijen zijn geen directe weergaven, maar herinterpretaties gevormd door zowel herinnering als
+              een hedendaags perspectief, en nodigen uit tot reflectie over de veranderlijke aard van het geheugen.
+            </p>
+          </div>
+        </div>
+
+        <div class="about-doodle-wrap">
+          <img class="about-doodle" src="../assets/img/doodles/doodle-1.png" alt="doodle-1">
+        </div>
       </div>
     </section>
 
@@ -69,75 +94,76 @@
 
       <h3>2023</h3>
       <p>
-      Eindejaarstentoonstelling GIP <br />
-      June 2023 <br />
-      De! Kunsthumaniora Antwerpen <br /> <br>
+        Eindejaarstentoonstelling GIP <br />
+        June 2023 <br />
+        De! Kunsthumaniora Antwerpen <br /> <br>
       </p>
-      
+
       <h3>2025</h3>
       <p>
-      Uilenspiegel Konterfeiten <br />
-      22.03.25 - 22.06.25 <br />
-      Uilenspiegel museum, Damme <br /> <br>
+        Uilenspiegel Konterfeiten <br />
+        22.03.25 - 22.06.25 <br />
+        Uilenspiegel museum, Damme <br /> <br>
 
-      <a href="https://www.luca-arts.be/nl/uilenspiegel-konterfeiten" target="_blank" rel="noopener noreferrer">https://www.luca-arts.be/nl/uilenspiegel-konterfeiten</a> <br>
+        <a href="https://www.luca-arts.be/nl/uilenspiegel-konterfeiten" target="_blank"
+          rel="noopener noreferrer">https://www.luca-arts.be/nl/uilenspiegel-konterfeiten</a> <br>
       </p>
 
       <h3>2026</h3>
       <p>
-      ARTEFICTION <br />
-      14.03.26 - 31.05.26 <br />
-      Art & History museum, Brussels <br /> <br>
+        ARTEFICTION <br />
+        14.03.26 - 31.05.26 <br />
+        Art & History museum, Brussels <br /> <br>
 
-      <a href="https://www.kmkg-mrah.be/en/activity/artefiction-imagining-collection" target="_blank" rel="noopener noreferrer">https://www.kmkg-mrah.be/en/activity/artefiction-imagining-collection</a> <br>
+        <a href="https://www.kmkg-mrah.be/en/activity/artefiction-imagining-collection" target="_blank"
+          rel="noopener noreferrer">https://www.kmkg-mrah.be/en/activity/artefiction-imagining-collection</a> <br>
       </p>
-      
+
       <h3>EXPECTED</h3>
       <h3>2026</h3>
       <p>
-      Illustratiefestival De Verbeelders <br />
-      29.08.26 <br />
-      Villa Verbeelding, Hasselt <br /> <br>
+        Illustratiefestival De Verbeelders <br />
+        29.08.26 <br />
+        Villa Verbeelding, Hasselt <br /> <br>
 
-      <a href="https://www.villaverbeelding.be/" target="_blank" rel="noopener noreferrer">https://www.villaverbeelding.be/</a> <br>
+        <a href="https://www.villaverbeelding.be/" target="_blank"
+          rel="noopener noreferrer">https://www.villaverbeelding.be/</a> <br>
       </p>
     </section>
   </main>
 
-  <footer>
-    <p>Laura Allali • Illustrator • Portfolio</p>
+  <footer class="site-footer" aria-label="Site footer">
+    <img src="../assets/footer.png" alt="Laura Allali footer logo" />
   </footer>
 
   <script src="../script.js"></script>
-  
+
   <script>
     // Language toggle functionality
     const languageToggle = document.getElementById('languageToggle');
     const langContents = document.querySelectorAll('[data-lang]');
-    
+
     // Initialize language from localStorage or default to English
     let currentLang = localStorage.getItem('preferred-language') || 'en';
     updateLanguage(currentLang);
-    
+
     languageToggle.addEventListener('click', () => {
       currentLang = currentLang === 'en' ? 'nl' : 'en';
       localStorage.setItem('preferred-language', currentLang);
       updateLanguage(currentLang);
     });
-    
+
     function updateLanguage(lang) {
-      // Update content visibility
       document.querySelectorAll('.lang-content').forEach(content => {
         content.style.display = content.getAttribute('data-lang') === lang ? 'block' : 'none';
       });
-      
-      // Update button text
+
       document.querySelector('.lang-en').style.display = lang === 'en' ? 'inline' : 'none';
       document.querySelector('.lang-nl').style.display = lang === 'nl' ? 'inline' : 'none';
-      
-      // Update page language attribute
+
       document.documentElement.lang = lang;
     }
   </script>
 </body>
+
 </html>
