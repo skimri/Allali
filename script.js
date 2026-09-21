@@ -512,6 +512,9 @@ revealTargets.forEach((target, index) => {
 });
 
 (() => {
+  const doodlesEnabled = document.querySelector('.hero#home, .contact-page');
+  if (!doodlesEnabled) return;
+
   const scriptTag = document.currentScript || document.querySelector('script[src*="script.js"]');
   const assetBase = scriptTag ? new URL('.', scriptTag.src) : new URL('./', window.location.href);
   const DOODLES_JSON = new URL('assets/img/doodles/list.json', assetBase).href;
@@ -541,117 +544,124 @@ revealTargets.forEach((target, index) => {
 
   let doodleEls = [];
 
-  function placeElAtRandom(el, others = []) {
-    const pageW = Math.max(document.documentElement.scrollWidth || 0, document.documentElement.clientWidth || 0, window.innerWidth || 0);
-    const pageH = Math.max(document.documentElement.scrollHeight || 0, document.documentElement.clientHeight || 0, window.innerHeight || 0);
-    const marginX = Math.min(0.06 * (window.innerWidth || document.documentElement.clientWidth), 80); // avoid viewport edges
-    const marginY = Math.min(0.06 * (window.innerHeight || document.documentElement.clientHeight), 80);
+  function rectsOverlap(a, b, gap = 0) {
+    return !(
+      a.right + gap <= b.left ||
+      a.left >= b.right + gap ||
+      a.bottom + gap <= b.top ||
+      a.top >= b.bottom + gap
+    );
+  }
 
+  function layoutDoodles() {
+    // Reset first so old absolute positions cannot inflate the document dimensions.
+    doodleEls.forEach((el) => {
+      el.style.visibility = 'hidden';
+      el.style.left = '0';
+      el.style.top = '0';
+      el.style.transform = 'none';
+    });
+
+    const doc = document.documentElement;
+    const pageW = Math.max(doc.clientWidth || 0, window.innerWidth || 0);
+    const pageH = Math.max(doc.scrollHeight || 0, doc.clientHeight || 0, window.innerHeight || 0);
+    const margin = Math.min(pageW * 0.04, 64);
+    const gap = 24;
+    const mainGap = 20;
+    const scrollX = window.pageXOffset || doc.scrollLeft || 0;
+    const scrollY = window.pageYOffset || doc.scrollTop || 0;
     const mainEl = document.querySelector('main');
     let exclusion = null;
+
     if (mainEl) {
       const rect = mainEl.getBoundingClientRect();
-      const sx = window.pageXOffset || document.documentElement.scrollLeft || 0;
-      const sy = window.pageYOffset || document.documentElement.scrollTop || 0;
       exclusion = {
-        left: rect.left + sx,
-        top: rect.top + sy,
-        right: rect.right + sx,
-        bottom: rect.bottom + sy,
+        left: rect.left + scrollX,
+        top: rect.top + scrollY,
+        right: rect.right + scrollX,
+        bottom: rect.bottom + scrollY,
       };
     }
 
-    const w = el.offsetWidth || 1;
-    const h = el.offsetHeight || 1;
-      // choose visual transform first so we can account for scaled size when checking overlaps
-      const rot = randBetween(-14, 14);
-      const scale = randBetween(0.9, 1.4);
+    const placedRects = [];
 
-      // use viewport coordinates for placement calculations (convert to page coords when assigning)
-      const scrollX = window.pageXOffset || document.documentElement.scrollLeft || 0;
-      const scrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
-      const vpW = window.innerWidth || document.documentElement.clientWidth || 0;
-      const vpH = window.innerHeight || document.documentElement.clientHeight || 0;
-      const marginVX = Math.min(0.06 * vpW, 80);
-      const marginVY = Math.min(0.06 * vpH, 80);
+    doodleEls.forEach((el) => {
+      const width = el.offsetWidth;
+      const height = el.offsetHeight;
+      const rotation = randBetween(-14, 14);
+      const radians = Math.abs(rotation) * Math.PI / 180;
+      // A rotated element's axis-aligned box is larger than width * scale.
+      const rotatedW = Math.abs(width * Math.cos(radians)) + Math.abs(height * Math.sin(radians));
+      const rotatedH = Math.abs(width * Math.sin(radians)) + Math.abs(height * Math.cos(radians));
+      const leftGutterW = exclusion ? exclusion.left - margin - mainGap : 0;
+      const rightGutterW = exclusion ? pageW - margin - exclusion.right - mainGap : 0;
+      const widestGutter = Math.max(leftGutterW, rightGutterW);
+      let scale = Math.min(randBetween(0.9, 1.4), widestGutter / rotatedW);
+      let position = null;
 
-      const wScaled = w * scale;
-      const hScaled = h * scale;
+      // Keep every doodle wholly inside either the left or right gutter. Very
+      // small gutters hide doodles rather than placing them behind the main grid.
+      if (width && height && exclusion && scale >= 0.45) {
+        let transform = `translate(-50%, -50%) rotate(${rotation}deg) scale(${scale})`;
+        el.style.transform = transform;
+        let measured = el.getBoundingClientRect();
 
-      // try a few times to avoid placing inside excluded rect or overlapping other doodles
-      let attempt = 0;
-      let leftV = 0, topV = 0;
-      const maxAttempts = 80;
-      while (attempt < maxAttempts) {
-        leftV = randBetween(marginVX, vpW - marginVX);
-        topV = randBetween(marginVY, vpH - marginVY);
+        // Use the rendered width as the final authority; percentage translation
+        // and rotation can produce a wider box than the geometric estimate.
+        if (measured.width > widestGutter) {
+          scale *= Math.max(0, widestGutter - 1) / measured.width;
+          if (scale < 0.45) return;
+          transform = `translate(-50%, -50%) rotate(${rotation}deg) scale(${scale})`;
+          el.style.transform = transform;
+          measured = el.getBoundingClientRect();
+        }
 
-        // current doodle bounding box in viewport coordinates
-        const doodleRectV = {
-          left: leftV - wScaled / 2,
-          top: topV - hScaled / 2,
-          right: leftV + wScaled / 2,
-          bottom: topV + hScaled / 2,
-        };
+        // These offsets account for CSS transform order as rendered by the browser.
+        const offsetLeft = measured.left + scrollX;
+        const offsetTop = measured.top + scrollY;
+        const offsetRight = measured.right + scrollX;
+        const offsetBottom = measured.bottom + scrollY;
+        const minY = margin - offsetTop;
+        const maxY = pageH - margin - offsetBottom;
+        const lanes = [
+          {
+            minX: margin - offsetLeft,
+            maxX: exclusion.left - mainGap - offsetRight,
+          },
+          {
+            minX: exclusion.right + mainGap - offsetLeft,
+            maxX: pageW - margin - offsetRight,
+          },
+        ].filter((lane) => lane.minX <= lane.maxX);
 
-        // check exclusion: convert exclusion (page coords) to viewport coords and test
-        if (exclusion) {
-          const exclusionV = {
-            left: exclusion.left - scrollX,
-            top: exclusion.top - scrollY,
-            right: exclusion.right - scrollX,
-            bottom: exclusion.bottom - scrollY,
+        for (let attempt = 0; attempt < 240 && minY <= maxY; attempt += 1) {
+          if (!lanes.length) break;
+          const lane = lanes[Math.floor(Math.random() * lanes.length)];
+          const left = randBetween(lane.minX, lane.maxX);
+          const top = randBetween(minY, maxY);
+          const candidate = {
+            left: left + offsetLeft,
+            top: top + offsetTop,
+            right: left + offsetRight,
+            bottom: top + offsetBottom,
           };
-          const overlapsExclusion = !(doodleRectV.right < exclusionV.left || doodleRectV.left > exclusionV.right || doodleRectV.bottom < exclusionV.top || doodleRectV.top > exclusionV.bottom);
-          if (overlapsExclusion) {
-            attempt += 1;
-            continue;
-          }
-        }
 
-        // check overlap with other doodles using their getBoundingClientRect (which includes transforms)
-        let overlapsOthers = false;
-        for (let i = 0; i < others.length; i++) {
-          const other = others[i];
-          if (!other || other === el) continue;
-          const otherRect = other.getBoundingClientRect();
-          const overlaps = !(doodleRectV.right < otherRect.left || doodleRectV.left > otherRect.right || doodleRectV.bottom < otherRect.top || doodleRectV.top > otherRect.bottom);
-          if (overlaps) {
-            overlapsOthers = true;
-            break;
-          }
-        }
+          if (placedRects.some((rect) => rectsOverlap(candidate, rect, gap))) continue;
 
-        if (overlapsOthers) {
-          attempt += 1;
-          continue;
-        }
-
-        // found a non-overlapping spot
-        break;
-      }
-
-      // if we failed to find a non-overlapping spot, nudge the doodle to the nearest side of exclusion (use page coords)
-      let leftPage = leftV + scrollX;
-      let topPage = topV + scrollY;
-      if (exclusion && attempt >= 30) {
-        const centerX = (exclusion.left + exclusion.right) / 2;
-        if (leftPage > centerX) {
-          leftPage = Math.min(pageW - marginX, exclusion.right + wScaled);
-        } else {
-          leftPage = Math.max(marginX, exclusion.left - wScaled);
-        }
-        const centerY = (exclusion.top + exclusion.bottom) / 2;
-        if (topPage > centerY) {
-          topPage = Math.min(pageH - marginY, exclusion.bottom + hScaled);
-        } else {
-          topPage = Math.max(marginY, exclusion.top - hScaled);
+          position = { left, top, transform, rect: candidate };
+          break;
         }
       }
 
-      el.style.left = `${leftPage}px`;
-      el.style.top = `${topPage}px`;
-      el.style.transform = `translate(-50%, -50%) rotate(${rot}deg) scale(${scale})`;
+      // Fewer doodles is preferable to an overlapping pile on a constrained page.
+      if (!position) return;
+
+      el.style.left = `${position.left}px`;
+      el.style.top = `${position.top}px`;
+      el.style.transform = position.transform;
+      el.style.visibility = 'visible';
+      placedRects.push(position.rect);
+    });
   }
 
   fetch(DOODLES_JSON, { cache: 'no-cache' })
@@ -666,29 +676,36 @@ revealTargets.forEach((target, index) => {
       doodleEls.forEach((e) => e.remove());
       doodleEls = [];
 
-      picks.forEach((src, i) => {
+      picks.forEach((src) => {
         const img = document.createElement('img');
         img.className = 'site-doodle';
-        img.src = src;
+        img.src = new URL(src, assetBase).href;
         img.alt = '';
-        img.loading = 'lazy';
+        img.decoding = 'async';
+        img.style.visibility = 'hidden';
 
         // give a responsive base width then fine-tune position
         const baseWidthVw = Math.round(randBetween(12, 24));
         img.style.width = baseWidthVw + 'vw';
         img.style.maxWidth = '360px';
 
-        // append first so we can measure size, then position
+        // Append first; layout runs only after every image has measurable dimensions.
         document.body.appendChild(img);
-        // initial placement (avoid overlapping previously placed doodles)
-        placeElAtRandom(img, doodleEls);
         doodleEls.push(img);
       });
 
+      const imagesReady = doodleEls.map((img) => {
+        if (img.complete) return Promise.resolve();
+        return new Promise((resolve) => {
+          img.addEventListener('load', resolve, { once: true });
+          img.addEventListener('error', resolve, { once: true });
+        });
+      });
+
+      Promise.all(imagesReady).then(layoutDoodles);
+
       // reposition on resize
-      const onResize = debounce(() => {
-        doodleEls.forEach((el, idx) => placeElAtRandom(el, doodleEls.filter((e, i) => i !== idx)));
-      }, 160);
+      const onResize = debounce(layoutDoodles, 160);
 
       window.addEventListener('resize', onResize);
     })

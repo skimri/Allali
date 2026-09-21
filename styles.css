@@ -889,7 +889,6 @@ footer.site-footer img {
   border-radius: 0;
   transform-origin: center center;
   will-change: transform, left, top;
-  transition: transform var(--dur-base) ease, opacity var(--dur-fast) ease;
   opacity: 0.7;
 }
 
