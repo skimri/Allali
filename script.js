@@ -55,7 +55,8 @@ if (bookReaderRoot && window.pdfjsLib) {
   const stage = bookReaderRoot.querySelector('[data-reader-stage]');
   const loadingLabel = bookReaderRoot.querySelector('[data-reader-loading]');
   const counterLabel = bookReaderRoot.querySelector('[data-reader-counter]');
-  const pdfWorkerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  const scriptBase = scriptElement ? new URL('./', scriptElement.src) : new URL('./', window.location.href);
+  const pdfWorkerSrc = new URL('vendor/pdfjs/pdf.worker.min.js', scriptBase).href;
   const layoutQuery = window.matchMedia('(max-width: 760px)');
 
   window.pdfjsLib.GlobalWorkerOptions.workerSrc = pdfWorkerSrc;
@@ -482,9 +483,6 @@ if (bookReaderRoot && window.pdfjsLib) {
 
   updateButtons();
 
-  // Start pre-caching pages in the background so navigation feels snappy later.
-  // Do not await this to avoid blocking page load.
-  preCacheAllPages();
 }
 
 const revealTargets = document.querySelectorAll('.tile');
@@ -723,7 +721,7 @@ if (document.querySelector('.category-page') && window.baguetteBox) {
     }
 
     const link = document.createElement('a');
-    link.href = img.currentSrc || img.src;
+    link.href = img.dataset.fullSrc || img.src;
     link.className = 'lightbox-link';
     link.setAttribute('aria-label', `Open image: ${img.alt || 'Artwork'}`);
     img.parentNode.insertBefore(link, img);
